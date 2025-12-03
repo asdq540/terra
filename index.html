@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Daikin İyileştirme Öneri Formu (Modern & İmza Destekli)</title>
+    <title>Daikin İyileştirme Öneri Formu (Modern & Responsive)</title>
     <style>
         /* Genel Stil ve Resetler */
         body {
@@ -75,7 +75,7 @@
             margin-bottom: 15px;
         }
         .field {
-            flex: 1 1 48%;
+            flex: 1 1 48%; /* İki sütun düzeni */
             padding-right: 2%;
             margin-bottom: 15px;
         }
@@ -135,6 +135,7 @@
             margin-top: 5px;
             border-radius: 4px;
             cursor: crosshair;
+            touch-action: none; /* Dokunmatik kaydırmayı engeller */
         }
         .clear-btn {
             display: block;
@@ -199,6 +200,67 @@
         }
         .submit-button:hover {
             background-color: #008c45;
+        }
+        
+        /* --- RESPONSIVE AYARLAR (MEDIA QUERIES) --- */
+
+        /* 768px ve altındaki ekranlar için (Tablet ve Telefonlar) */
+        @media (max-width: 768px) {
+            body {
+                padding: 15px; 
+            }
+            .header {
+                flex-direction: column;
+                text-align: center;
+                padding: 15px;
+            }
+            .logo {
+                margin-right: 0;
+                margin-bottom: 10px;
+            }
+            .form-content {
+                padding: 15px;
+            }
+            
+            /* İki sütunlu düzeni tek sütuna çevir */
+            .form-group {
+                flex-direction: column;
+            }
+            .field {
+                flex: 1 1 100%;
+                padding-right: 0;
+            }
+            
+            /* Onay Akışını Dikey Yapılandırma */
+            .approval-flow {
+                flex-direction: column;
+                gap: 20px;
+                align-items: stretch;
+            }
+            .approval-step {
+                padding: 10px;
+                border: 1px solid #eee;
+                border-radius: 5px;
+            }
+            .arrow {
+                display: none;
+            }
+            
+            /* Checkbox Grubu düzenini ayarlama */
+            .checkbox-group {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            /* Kontrol Durumu kutusunu tam genişlik yap */
+            .section-body > div:first-child {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            .section-body > div:first-child > div:last-child {
+                width: 100%;
+                margin-top: 15px;
+            }
         }
     </style>
 </head>
@@ -331,8 +393,6 @@
         const ctx = canvas.getContext('2d');
         let drawing = false;
 
-        // Canvas boyutlarını ayarlama
-        // CSS ile ayarlanan boyutu JavaScript'e aktarmak önemlidir.
         const setCanvasSize = () => {
             canvas.width = canvas.offsetWidth;
             canvas.height = canvas.offsetHeight;
@@ -344,7 +404,7 @@
         };
 
         setCanvasSize();
-        window.addEventListener('resize', setCanvasSize); // Pencere boyutu değişirse ayarla
+        window.addEventListener('resize', setCanvasSize);
 
         function getCoords(e) {
             const rect = canvas.getBoundingClientRect();
@@ -388,7 +448,7 @@
         // Olay Dinleyicileri (Mouse ve Dokunmatik)
         canvas.addEventListener('mousedown', startDrawing);
         canvas.addEventListener('mousemove', draw);
-        document.addEventListener('mouseup', stopDrawing); // İmleç canvas dışındayken bırakılırsa
+        document.addEventListener('mouseup', stopDrawing); 
         canvas.addEventListener('mouseout', stopDrawing);
 
         canvas.addEventListener('touchstart', startDrawing);
@@ -414,27 +474,26 @@
         }
     }
 
-    // Form Gönderme İşlemi (Sunucuya Göndermeden Önce İmza Verilerini Toplama)
+    // Form Gönderme İşlemi (Base64 Verisini Konsola Yazdırma)
     document.querySelector('.form-container').addEventListener('submit', function(e) {
         e.preventDefault();
 
-        // Tüm imza alanlarını topla
+        // Tüm imza alanlarını Base64 formatında topla
         const signatures = {};
         document.querySelectorAll('.signature-pad').forEach(canvas => {
-            // Base64 formatında resim verisini al
             signatures[canvas.id] = canvas.toDataURL('image/png');
         });
 
-        // Bu noktada:
-        // 1. signatures objesi, tüm imzaların Base64 verilerini tutar.
-        // 2. Diğer form verilerini (input, textarea vb.) toplamanız gerekir.
-        // 3. Bu verileri (imzalar dahil) bir AJAX isteği ile sunucu tarafına (backend) POST etmelisiniz.
-
-        console.log("İmzalar Başarıyla Toplandı (Base64 formatında). Sunucuya gönderime hazır.");
+        console.log("-----------------------------------------");
+        console.log("FORM GÖNDERİMİ BAŞLATILDI:");
+        console.log("-----------------------------------------");
+        console.log("İmzalar (Base64 Verisi - Sunucuya Gönderilmeli):");
         console.log(signatures);
         
-        alert("Form verileri (imzalar dahil) konsola yazıldı. Gerçek uygulamada burası sunucuya gönderilecektir.");
-        // alert("Form Gönderildi!"); // Gerçek gönderim başarılı olursa bu alert verilir.
+        // Gerçek uygulamada, formun diğer alanlarını da toplayıp
+        // bir AJAX (fetch/XMLHttpRequest) isteği ile sunucuya POST etmeniz gerekir.
+
+        alert("Form verileri (imzalar dahil) konsola yazıldı. Gerçek uygulamada veriler sunucuya gönderilmelidir.");
     });
 </script>
 
