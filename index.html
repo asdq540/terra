@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Daikin İyileştirme Öneri Formu (Modern)</title>
+    <title>Daikin İyileştirme Öneri Formu (Modern & İmza Destekli)</title>
     <style>
         /* Genel Stil ve Resetler */
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             margin: 0;
             padding: 30px;
-            background-color: #f7f9fb; /* Açık arka plan */
+            background-color: #f7f9fb;
             color: #333;
         }
         .form-container {
@@ -18,7 +18,7 @@
             margin: auto;
             background: white;
             border-radius: 12px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1); /* Hafif gölge */
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
             overflow: hidden;
         }
 
@@ -31,7 +31,6 @@
             align-items: center;
         }
         .logo {
-            /* Buraya Daikin logosunun SVG/PNG'si gelebilir. Şimdilik metin kullandık. */
             font-size: 24px;
             font-weight: bold;
             margin-right: 20px;
@@ -76,7 +75,7 @@
             margin-bottom: 15px;
         }
         .field {
-            flex: 1 1 48%; /* İki sütun düzeni */
+            flex: 1 1 48%;
             padding-right: 2%;
             margin-bottom: 15px;
         }
@@ -100,7 +99,7 @@
             transition: border-color 0.3s;
         }
         input:focus, textarea:focus {
-            border-color: #004d99; /* Odaklandığında lacivert kenarlık */
+            border-color: #004d99;
             outline: none;
         }
         textarea {
@@ -122,9 +121,36 @@
         }
         .checkbox-group input[type="checkbox"] {
             margin-right: 5px;
-            accent-color: #004d99; /* Checkbox rengi */
+            accent-color: #004d99;
             width: auto;
             transform: scale(1.1);
+        }
+
+        /* İmza Alanı (Canvas) Stili */
+        .signature-pad {
+            border: 1px solid #aaa;
+            background-color: #fff;
+            height: 100px;
+            width: 100%;
+            margin-top: 5px;
+            border-radius: 4px;
+            cursor: crosshair;
+        }
+        .clear-btn {
+            display: block;
+            width: 100%;
+            padding: 5px;
+            margin-top: 5px;
+            background-color: #f44336;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.8em;
+            transition: background-color 0.2s;
+        }
+        .clear-btn:hover {
+            background-color: #d32f2f;
         }
 
         /* Onay Akışı (Approval Flow) */
@@ -137,7 +163,7 @@
         }
         .approval-step {
             flex: 1;
-            padding: 0 10px;
+            padding: 0 5px;
         }
         .approval-step p {
             margin: 0 0 5px 0;
@@ -150,19 +176,10 @@
             color: #000;
             margin-bottom: 5px;
         }
-        .signature-box {
-            border: 1px dashed #aaa;
-            height: 40px;
-            line-height: 40px;
-            margin-top: 5px;
-            border-radius: 4px;
-            font-size: 0.8em;
-            color: #aaa;
-        }
         .arrow {
-            color: #00a651; /* Yeşil ok */
+            color: #00a651;
             font-size: 1.5em;
-            padding-top: 35px; /* Dikey hizalama */
+            padding-top: 45px;
             flex-shrink: 0;
         }
 
@@ -170,7 +187,7 @@
         .submit-button {
             width: 100%;
             padding: 12px;
-            background-color: #00a651; /* Yeşil - Aksiyon rengi */
+            background-color: #00a651;
             color: white;
             border: none;
             border-radius: 5px;
@@ -214,8 +231,9 @@
                         <input type="text" id="bolum" name="bolum" required>
                     </div>
                     <div class="field">
-                        <label for="imza1">İmza (Elle Atılacak veya E-imza):</label>
-                        <div class="signature-box">İmza Alanı</div>
+                        <label for="imzaBasvuran">Başvuran Kişi İmza:</label>
+                        <canvas id="signature-basvuran" class="signature-pad"></canvas>
+                        <button type="button" onclick="clearSignature('signature-basvuran')" class="clear-btn">Temizle</button>
                     </div>
                 </div>
 
@@ -259,7 +277,7 @@
                     </div>
                     <div style="width: 150px; padding: 10px; border: 1px solid #ccc; border-radius: 5px; background-color: #f9f9f9;">
                         <strong>CONTROL DURUMU</strong>
-                        <div style="margin-top: 5px;">
+                        <div style="margin-top: 5px; display: flex; flex-direction: column;">
                             <label><input type="checkbox" name="sonucControl" value="ok"> OK</label>
                             <label><input type="checkbox" name="sonucControl" value="done"> DONE</label>
                             <label><input type="checkbox" name="sonucControl" value="nok"> NOK</label>
@@ -272,25 +290,22 @@
                     <div class="approval-step">
                         <strong>Formen / Hat Lideri</strong>
                         <p>Ad - Soyad</p>
-                        <div class="signature-box">İmza</div>
+                        <canvas id="signature-formen" class="signature-pad"></canvas>
+                        <button type="button" onclick="clearSignature('signature-formen')" class="clear-btn">Temizle</button>
                     </div>
                     <div class="arrow">→</div>
                     <div class="approval-step">
                         <strong>Mühendis / Şef</strong>
                         <p>Ad - Soyad</p>
-                        <div class="signature-box">İmza</div>
-                    </div>
-                    <div class="arrow">→</div>
-                    <div class="approval-step">
-                        <strong>İlgili Departman Sorumlusu</strong>
-                        <p>Ad - Soyad</p>
-                        <div class="signature-box">İmza</div>
+                        <canvas id="signature-muhendis" class="signature-pad"></canvas>
+                        <button type="button" onclick="clearSignature('signature-muhendis')" class="clear-btn">Temizle</button>
                     </div>
                     <div class="arrow">→</div>
                     <div class="approval-step">
                         <strong>Uygulayıcı Sorumlu</strong>
                         <p>Ad - Soyad</p>
-                        <div class="signature-box">İmza</div>
+                        <canvas id="signature-uygulayici" class="signature-pad"></canvas>
+                        <button type="button" onclick="clearSignature('signature-uygulayici')" class="clear-btn">Temizle</button>
                     </div>
                 </div>
 
@@ -310,6 +325,118 @@
         <button type="submit" class="submit-button">FORMU GÖNDER VE ONAY SÜRECİNİ BAŞLAT</button>
     </div>
 </form>
+
+<script>
+    function initializeSignaturePad(canvas) {
+        const ctx = canvas.getContext('2d');
+        let drawing = false;
+
+        // Canvas boyutlarını ayarlama
+        // CSS ile ayarlanan boyutu JavaScript'e aktarmak önemlidir.
+        const setCanvasSize = () => {
+            canvas.width = canvas.offsetWidth;
+            canvas.height = canvas.offsetHeight;
+            ctx.lineWidth = 2;
+            ctx.lineCap = 'round';
+            ctx.strokeStyle = '#000';
+            ctx.fillStyle = '#fff';
+            ctx.fillRect(0, 0, canvas.width, canvas.height); // Arka planı beyaz yapar
+        };
+
+        setCanvasSize();
+        window.addEventListener('resize', setCanvasSize); // Pencere boyutu değişirse ayarla
+
+        function getCoords(e) {
+            const rect = canvas.getBoundingClientRect();
+            // Dokunmatik (touch) olayları
+            if (e.touches && e.touches.length > 0) {
+                return {
+                    x: e.touches[0].clientX - rect.left,
+                    y: e.touches[0].clientY - rect.top
+                };
+            }
+            // Mouse olayları
+            return {
+                x: e.clientX - rect.left,
+                y: e.clientY - rect.top
+            };
+        }
+
+        const startDrawing = (e) => {
+            drawing = true;
+            const { x, y } = getCoords(e);
+            ctx.beginPath();
+            ctx.moveTo(x, y);
+            e.preventDefault();
+        };
+
+        const draw = (e) => {
+            if (!drawing) return;
+            const { x, y } = getCoords(e);
+            ctx.lineTo(x, y);
+            ctx.stroke();
+            e.preventDefault();
+        };
+
+        const stopDrawing = () => {
+            if (drawing) {
+                ctx.closePath();
+            }
+            drawing = false;
+        };
+
+        // Olay Dinleyicileri (Mouse ve Dokunmatik)
+        canvas.addEventListener('mousedown', startDrawing);
+        canvas.addEventListener('mousemove', draw);
+        document.addEventListener('mouseup', stopDrawing); // İmleç canvas dışındayken bırakılırsa
+        canvas.addEventListener('mouseout', stopDrawing);
+
+        canvas.addEventListener('touchstart', startDrawing);
+        canvas.addEventListener('touchmove', draw);
+        document.addEventListener('touchend', stopDrawing);
+        canvas.addEventListener('touchcancel', stopDrawing);
+    }
+
+    document.addEventListener("DOMContentLoaded", function() {
+        const signaturePads = document.querySelectorAll('.signature-pad');
+        signaturePads.forEach(initializeSignaturePad);
+    });
+
+    // Temizleme Fonksiyonu
+    function clearSignature(canvasId) {
+        const canvas = document.getElementById(canvasId);
+        if (canvas) {
+            const ctx = canvas.getContext('2d');
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            // İmza alanı temizlendikten sonra arka planı tekrar beyaz yap
+            ctx.fillStyle = '#fff';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+        }
+    }
+
+    // Form Gönderme İşlemi (Sunucuya Göndermeden Önce İmza Verilerini Toplama)
+    document.querySelector('.form-container').addEventListener('submit', function(e) {
+        e.preventDefault();
+
+        // Tüm imza alanlarını topla
+        const signatures = {};
+        document.querySelectorAll('.signature-pad').forEach(canvas => {
+            // Base64 formatında resim verisini al
+            signatures[canvas.id] = canvas.toDataURL('image/png');
+        });
+
+        // Bu noktada:
+        // 1. signatures objesi, tüm imzaların Base64 verilerini tutar.
+        // 2. Diğer form verilerini (input, textarea vb.) toplamanız gerekir.
+        // 3. Bu verileri (imzalar dahil) bir AJAX isteği ile sunucu tarafına (backend) POST etmelisiniz.
+
+        console.log("İmzalar Başarıyla Toplandı (Base64 formatında). Sunucuya gönderime hazır.");
+        console.log(signatures);
+        
+        alert("Form verileri (imzalar dahil) konsola yazıldı. Gerçek uygulamada burası sunucuya gönderilecektir.");
+        // alert("Form Gönderildi!"); // Gerçek gönderim başarılı olursa bu alert verilir.
+    });
+</script>
 
 </body>
 </html>
