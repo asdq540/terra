@@ -3,36 +3,36 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Daikin İyileştirme Öneri Formu (Nihai Kurumsal Sürüm)</title>
+    <title>Daikin İyileştirme Öneri Formu</title>
     <style>
         /* Genel Stil ve Resetler - Kurumsal Ayarlar */
         body {
-            font-family: 'Arial', 'Helvetica Neue', Helvetica, sans-serif; /* Daha Kurumsal Font */
+            font-family: 'Arial', 'Helvetica Neue', Helvetica, sans-serif; 
             margin: 0;
             padding: 30px;
-            background-color: #f0f2f5; /* Çok hafif grimsi arka plan */
-            color: #2c3e50; /* Koyu, kurumsal metin rengi */
+            background-color: #f0f2f5; 
+            color: #2c3e50; 
         }
         .form-container {
             max-width: 900px;
             margin: auto;
             background: white;
-            border-radius: 8px; /* Köşeleri biraz daha keskin */
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08); /* Yumuşak ve profesyonel gölge */
-            border: 1px solid #dcdfe4; /* Hafif bir dış kenarlık */
+            border-radius: 8px; 
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08); 
+            border: 1px solid #dcdfe4; 
             overflow: hidden;
         }
 
         /* Başlık Alanı (Header) */
         .header {
-            background-color: #003366; /* Daha koyu Daikin mavisi (Navy Blue) */
+            background-color: #003366; 
             color: white;
             padding: 20px 30px;
             display: flex;
             align-items: center;
         }
         .logo {
-            font-size: 26px; /* Daha belirgin logo */
+            font-size: 26px; 
             font-weight: 700;
             margin-right: 25px;
             white-space: nowrap;
@@ -40,7 +40,7 @@
         .header-text h3 {
             margin: 0 0 5px 0;
             font-size: 1.6em;
-            letter-spacing: 0.5px; /* Okunurluğu artırır */
+            letter-spacing: 0.5px; 
         }
         .header-text p {
             margin: 0;
@@ -60,12 +60,23 @@
         }
         .section-title {
             font-weight: 600;
-            background-color: #eaf3f8; /* Açık, temiz mavi tonu */
-            color: #003366; /* Başlık metni için koyu mavi */
+            background-color: #eaf3f8;
+            color: #003366; 
             padding: 14px 20px;
             font-size: 1.15em;
             border-bottom: 1px solid #d4e0f0;
         }
+        
+        /* Başvuran Kişi Bilgileri Bölümü Vurgusu (Soft Renk) */
+        .applicant-section {
+            background-color: #f7fcff; 
+        }
+        .applicant-section .section-title {
+            background-color: #cceeff; /* Daha soft ve canlı mavi */
+            color: #003366; 
+            border-bottom: 1px solid #99ccee;
+        }
+
         .section-body {
             padding: 20px;
         }
@@ -97,12 +108,12 @@
             padding: 10px;
             box-sizing: border-box;
             border: 1px solid #ccc;
-            border-radius: 4px; /* Daha keskin kenarlar */
+            border-radius: 4px; 
             transition: border-color 0.3s, box-shadow 0.3s;
         }
         input:focus, textarea:focus {
             border-color: #004d99;
-            box-shadow: 0 0 5px rgba(0, 77, 153, 0.3); /* Hafif odak gölgesi */
+            box-shadow: 0 0 5px rgba(0, 77, 153, 0.3); 
             outline: none;
         }
         textarea {
@@ -145,7 +156,7 @@
             width: 100%;
             padding: 5px;
             margin-top: 5px;
-            background-color: #c0392b; /* Koyu kırmızı (Daha ciddi hata/işlem rengi) */
+            background-color: #c0392b; 
             color: white;
             border: none;
             border-radius: 4px;
@@ -173,16 +184,15 @@
             display: block;
             font-size: 1em;
             font-weight: 600;
-            color: #003366; /* Rol başlıkları daha belirgin */
+            color: #003366; 
             margin-bottom: 5px;
         }
         .arrow {
-            color: #27ae60; /* Daha resmi yeşil */
+            color: #27ae60; 
             font-size: 1.5em;
             padding-top: 45px;
             flex-shrink: 0;
         }
-        /* Yeni Ad Soyad Girişi */
         .signature-name-input {
             width: 100%;
             padding: 5px;
@@ -200,7 +210,7 @@
         .submit-button {
             width: 100%;
             padding: 12px;
-            background-color: #27ae60; /* Yeşil - Kurumsal Onay rengi */
+            background-color: #27ae60; 
             color: white;
             border: none;
             border-radius: 4px;
@@ -256,7 +266,7 @@
     </div>
 
     <div class="form-content">
-        <div class="section">
+        <div class="section applicant-section">
             <div class="section-title">👤 Başvuran Kişi Bilgileri</div>
             <div class="section-body">
                 <div class="form-group">
@@ -298,7 +308,7 @@
                     <input type="text" id="konu" name="konu" required>
                 </div>
                 <div class="field" style="flex: 100%;">
-                    <label for="mevcutDurum">Mevcut Durum (Problem/Fırsat Nedir?):</label>
+                    <label for="mevcutDurum">Mevcut Durum (Problem Nedir?):</label>
                     <textarea id="mevcutDurum" name="mevcutDurum" required></textarea>
                 </div>
                 <div class="field" style="flex: 100%;">
@@ -460,7 +470,7 @@
         });
 
         const formenName = document.querySelector('input[name="formen_ad_soyad"]').value;
-        // Diğer verileri de burada toplarsınız...
+        // Diğer verileri de burada toplayıp Base64 imzalarla birlikte sunucuya göndermeniz gerekir.
 
         console.log("-----------------------------------------");
         console.log("FORM GÖNDERİMİ BAŞLATILDI (Kurumsal Sürüm):");
