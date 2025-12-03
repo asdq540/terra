@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Daikin İyileştirme Öneri Formu (Geniş Ekran)</title>
+    <title>Daikin İyileştirme Öneri Formu (Büyük Seçenek Kutuları)</title>
     <style>
         /* Genel Stil ve Resetler - Kurumsal Gri ve Modern Palet */
         body {
@@ -14,7 +14,7 @@
             color: #333333; 
         }
         .form-container {
-            max-width: 1100px; /* GENİŞLİK ARTIRILDI */
+            max-width: 1100px; /* Geniş Form */
             margin: auto;
             background: white;
             border-radius: 8px; 
@@ -88,17 +88,12 @@
             margin-bottom: 15px;
         }
         .field {
-            /* 1100px genişlikte bu alanlar 4'erli sığabilir. */
             flex: 1 1 23%; 
             padding-right: 2%;
             margin-bottom: 15px;
         }
         .field:nth-child(4n) { 
             padding-right: 0;
-        }
-        .field:nth-child(4n + 1) { 
-            /* İyileştirme alanında 4 değil 5 alan olduğundan esnek tutuyoruz */
-            flex: 1 1 18%; 
         }
         
         label {
@@ -126,29 +121,56 @@
             min-height: 100px;
         }
 
-        /* Checkbox Grubu - YAN YANA SÜREKLİ HİZALAMA İÇİN DEĞİŞİKLİK */
-        .checkbox-group {
+        /* 🔥 YENİ STİL: SEÇİM KUTULARI (CARDS) 🔥 */
+        .selection-cards {
             display: flex;
-            flex-wrap: nowrap; /* Seçeneklerin alt alta inmesini engeller */
-            justify-content: space-between; /* Alanı eşit dağıtır */
-            gap: 10px; /* Opsiyonel: Alanlar arası boşluk */
-            margin-top: 10px;
+            justify-content: space-between;
+            gap: 15px;
+            margin-top: 15px;
+            flex-wrap: nowrap; /* Büyük ekranlarda yan yana kalmasını sağlar */
         }
-        .checkbox-group label {
-            display: inline-flex;
-            align-items: center;
-            font-weight: normal;
-            flex: 1; /* Her bir label'a eşit alan verir */
-            white-space: nowrap;
+        .selection-card {
+            flex: 1;
+            text-align: center;
+            cursor: pointer;
+            padding: 15px;
+            border: 2px solid #ccc;
+            border-radius: 8px;
+            transition: all 0.2s ease-in-out;
+            background-color: #fff;
+            position: relative;
         }
-        .checkbox-group input[type="checkbox"] {
-            margin-right: 5px;
-            accent-color: #ff9800; 
-            width: auto;
-            transform: scale(1.1);
+        /* Gizli checkbox'ı görsel olarak kaldırıyoruz */
+        .selection-card input[type="checkbox"] {
+            display: none;
+        }
+        
+        .selection-icon {
+            font-size: 40px; /* Sembol boyutu */
+            display: block;
+            margin-bottom: 10px;
+            color: #2c3e50; /* Koyu Antrasit */
+        }
+        .selection-text {
+            font-weight: 600;
+            font-size: 0.9em;
+            color: #333;
         }
 
-        /* İmza Alanı (Canvas) ve Diğerleri aynı kalır */
+        /* Seçim yapıldığında kartın görünümü */
+        .selection-card input:checked + .card-content {
+            border-color: #ff9800; /* Turuncu seçili kenarlık */
+            background-color: #fffae8; /* Çok hafif turuncu arka plan */
+            box-shadow: 0 0 8px rgba(255, 152, 0, 0.5);
+        }
+        .selection-card input:checked + .card-content .selection-icon {
+            color: #ff9800; /* Seçilince ikon rengi turuncu olsun */
+        }
+        .selection-card:hover {
+            border-color: #a9a9a9;
+        }
+
+        /* İmza Alanı (Canvas) Stili */
         .signature-pad {
             border: 1px solid #aaa;
             background-color: #fff;
@@ -235,21 +257,17 @@
         /* --- RESPONSIVE AYARLAR (MEDIA QUERIES) --- */
 
         @media (max-width: 1150px) {
-            /* 1150px'den küçük ekranlarda form-container max-width'i küçültüyoruz ki yanal kaydırma çubuğu çıkmasın */
             .form-container {
                 max-width: 90%; 
             }
         }
         @media (max-width: 992px) {
-             /* Seçenekler 992px altında yan yana sığmayabilir, bu yüzden alt alta indiriyoruz */
-            .checkbox-group {
-                flex-wrap: wrap; 
+            .selection-cards {
+                flex-wrap: wrap; /* İkişerli hale gelir */
                 justify-content: flex-start;
-                gap: 15px;
             }
-            .checkbox-group label {
-                flex: auto; /* Alanı bölmek yerine içeriğe göre yer kaplasın */
-                width: calc(50% - 15px); /* İkişerli hizalama için */
+            .selection-card {
+                flex: 1 1 calc(50% - 15px); /* İkişerli hizalama */
             }
         }
         @media (max-width: 768px) {
@@ -261,8 +279,8 @@
             .form-group { flex-direction: column; }
             .field { flex: 1 1 100%; padding-right: 0; }
             
-            .checkbox-group label {
-                width: 100%; /* Mobil görünümde tekli hizalama */
+            .selection-card {
+                flex: 1 1 100%; /* Mobil görünümde tekli hizalama */
             }
             
             .approval-flow {
@@ -315,14 +333,51 @@
                 </div>
 
                 <label style="margin-top: 10px;">📈 İyileştirme Alanı Seçimi (Birden Fazla Seçilebilir)</label>
-                <div class="checkbox-group">
-                    <label><input type="checkbox" name="alan" value="isg"> ⛑️ **İSG & Proses Emniyet**</label>
-                    <label><input type="checkbox" name="alan" value="kalite"> ⭐ **Kalite Güvence**</label>
-                    <label><input type="checkbox" name="alan" value="verimlilik"> ⚙️ **Verimlilik Artışı**</label>
-                    <label><input type="checkbox" name="alan" value="maliyet"> 💰 **Maliyet Düşürme**</label>
-                    <label><input type="checkbox" name="alan" value="surdurulebilirlik"> 🌳 **Sürdürülebilirlik / Çevre**</label>
+                
+                <div class="selection-cards">
+                    
+                    <label class="selection-card">
+                        <input type="checkbox" name="alan" value="isg">
+                        <div class="card-content">
+                            <span class="selection-icon">⛑️</span>
+                            <span class="selection-text">İSG & Proses Emniyet</span>
+                        </div>
+                    </label>
+
+                    <label class="selection-card">
+                        <input type="checkbox" name="alan" value="kalite">
+                        <div class="card-content">
+                            <span class="selection-icon">⭐</span>
+                            <span class="selection-text">Kalite Güvence</span>
+                        </div>
+                    </label>
+
+                    <label class="selection-card">
+                        <input type="checkbox" name="alan" value="verimlilik">
+                        <div class="card-content">
+                            <span class="selection-icon">⚙️</span>
+                            <span class="selection-text">Verimlilik Artışı</span>
+                        </div>
+                    </label>
+
+                    <label class="selection-card">
+                        <input type="checkbox" name="alan" value="maliyet">
+                        <div class="card-content">
+                            <span class="selection-icon">💰</span>
+                            <span class="selection-text">Maliyet Düşürme</span>
+                        </div>
+                    </label>
+
+                    <label class="selection-card">
+                        <input type="checkbox" name="alan" value="surdurulebilirlik">
+                        <div class="card-content">
+                            <span class="selection-icon">🌳</span>
+                            <span class="selection-text">Sürdürülebilirlik / Çevre</span>
+                        </div>
+                    </label>
+
                 </div>
-            </div>
+                </div>
         </div>
 
         <div class="section">
@@ -498,7 +553,7 @@
         // Diğer verileri de burada toplayıp Base64 imzalarla birlikte sunucuya göndermeniz gerekir.
 
         console.log("-----------------------------------------");
-        console.log("FORM GÖNDERİMİ BAŞLATILDI (Geniş Ekran):");
+        console.log("FORM GÖNDERİMİ BAŞLATILDI (Yeni Seçim Kutuları):");
         console.log("-----------------------------------------");
         console.log("Örn. Formen Ad Soyad:", formenName);
         console.log("İmzalar (Base64 Verisi - Sunucuya Gönderilmeli):");
