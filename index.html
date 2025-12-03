@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daikin İyileştirme Öneri Formu - F_PRD_012</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; background-color: #f4f4f4; }
+        .form-container { background: white; padding: 30px; border: 1px solid #ccc; max-width: 900px; margin: auto; }
+        .header { text-align: center; margin-bottom: 20px; }
+        .header h3 { margin: 0; }
+        .section { border: 1px solid black; margin-bottom: 20px; padding: 10px; }
+        .section-title { font-weight: bold; background-color: #ddd; padding: 5px; margin: -10px -10px 10px -10px; border-bottom: 1px solid black; }
+        .label-group { display: flex; flex-wrap: wrap; margin-bottom: 15px; }
+        .field { flex: 1 1 45%; margin-right: 10px; }
+        .field label { display: block; font-weight: bold; margin-bottom: 5px; }
+        .field input[type="text"], .field textarea, .field input[type="date"] { width: 100%; padding: 8px; box-sizing: border-box; border: 1px solid #ccc; }
+        .checkbox-group { display: flex; justify-content: space-around; margin: 15px 0; }
+        .checkbox-group div { text-align: center; }
+        .signature-line { border-bottom: 1px solid #000; margin-top: 50px; }
+        .approval-flow { display: flex; justify-content: space-between; text-align: center; margin-top: 20px; }
+        .approval-step { flex: 1; padding: 0 5px; }
+        .approval-step p { margin: 5px 0 0 0; font-size: 0.9em; }
+        .signature-box { border: 1px solid #000; height: 50px; margin-top: 5px; }
+        /* Siyah alanlar için özel stil (başvuran kişi dolduracak) */
+        .applicant-fill { background-color: #000; color: white; padding: 5px; text-align: center; font-weight: bold; margin-top: 10px; }
+    </style>
+</head>
+<body>
+
+<div class="form-container">
+    <div class="header">
+        <h2>DAIKIN ISITMA VE SOĞUTMA SİSTEMLERİ SANAYİ TİCARET A.Ş.</h2>
+        <h3>F_PRD_012 İyileştirme Öneri Formu</h3>
+        <p>BELGE NO: ...............................</p>
+    </div>
+
+    <div class="section">
+        <div class="section-title">BAŞVURAN KİŞİ</div>
+        <div class="label-group">
+            <div class="field">
+                <label for="adSoyad">Ad - Soyad :</label>
+                <input type="text" id="adSoyad" name="adSoyad">
+            </div>
+            <div class="field">
+                <label for="basvuranKisi">Başvuran Kişi :</label>
+                <input type="text" id="basvuranKisi" name="basvuranKisi">
+            </div>
+            <div class="field">
+                <label for="basvuruTarihi">Başvuru Tarihi :</label>
+                <input type="date" id="basvuruTarihi" name="basvuruTarihi">
+            </div>
+            <div class="field">
+                <label for="imza1">İmza :</label>
+                <div class="signature-line"></div>
+            </div>
+            <div class="field">
+                <label for="bolum">Bölüm :</label>
+                <input type="text" id="bolum" name="bolum">
+            </div>
+        </div>
+
+        <div class="applicant-fill">
+            SİYAH İLE ÇEVRİLEN ALANLAR BAŞVURAN KİŞİ DOLDURACAKTIR
+        </div>
+
+        <div class="checkbox-group">
+            <div>
+                <label for="isg">İSG & Ergonomi & Proses Emniyet</label><br>
+                <input type="checkbox" id="isg" name="alan" value="isg">
+            </div>
+            <div>
+                <label for="kaliteGuven">Kalite Güvence</label><br>
+                <input type="checkbox" id="kaliteGuven" name="alan" value="kaliteGuven">
+            </div>
+            <div>
+                <label for="verimlilik">Verimlilik Artışı</label><br>
+                <input type="checkbox" id="verimlilik" name="alan" value="verimlilik">
+            </div>
+            <div>
+                <label for="maliyetDusurme">Maliyet Düşürme</label><br>
+                <input type="checkbox" id="maliyetDusurme" name="alan" value="maliyetDusurme">
+            </div>
+            <div>
+                <label for="surdurulebilirlik">Sürdürülebilirlik (Enerji Verimliliği / Çevre)</label><br>
+                <input type="checkbox" id="surdurulebilirlik" name="alan" value="surdurulebilirlik">
+            </div>
+        </div>
+
+        <div class="field">
+            <label for="konu">Konu :</label>
+            <input type="text" id="konu" name="konu" style="height: 30px;">
+        </div>
+
+        <div class="field">
+            <label for="mevcutDurum">Mevcut Durum :</label>
+            <textarea id="mevcutDurum" name="mevcutDurum" rows="5"></textarea>
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="section-title">İYİLEŞTİRME ÖNERİSİ</div>
+        <div class="field">
+            <label for="iyilestirmeOnerisi">İyileştirme Önerisi :</label>
+            <textarea id="iyilestirmeOnerisi" name="iyilestirmeOnerisi" rows="5"></textarea>
+        </div>
+        <p style="font-size: 0.8em; margin-top: 15px;">NOT: Arka sayfaya önerinizle ilgili çizimi, detaylandırınız, ilave doküman vs. ek olarak paylaşabilirsiniz.</p>
+    </div>
+
+    <div class="section">
+        <div class="section-title">SONUÇ, BAŞVURAN & YÖNETİCİ</div>
+        <div style="display: flex; justify-content: space-between;">
+            <div style="flex: 1;">
+                <p>Başvuran ve Yönetici Onay Durumu</p>
+            </div>
+            <div style="width: 150px; text-align: right;">
+                <label>CONTROL</label>
+                <div><label>OK</label> <input type="checkbox" name="sonucControl" value="ok"></div>
+                <div><label>DONE</label> <input type="checkbox" name="sonucControl" value="done"></div>
+                <div><label>NOK</label> <input type="checkbox" name="sonucControl" value="nok"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="section-title">YÖNLENDİRME / ONAY</div>
+        <div class="approval-flow">
+            <div class="approval-step">
+                <p>Formen / Hat Lideri</p>
+                <p>Ad - Soyad</p>
+                <div class="signature-box">İmza</div>
+            </div>
+            <div class="approval-step" style="flex-grow: 0; padding-top: 35px;">➡️</div>
+            <div class="approval-step">
+                <p>Mühendis</p>
+                <p>Ad - Soyad</p>
+                <div class="signature-box">İmza</div>
+            </div>
+            <div class="approval-step" style="flex-grow: 0; padding-top: 35px;">➡️</div>
+            <div class="approval-step">
+                <p>Şef</p>
+                <p>Ad - Soyad</p>
+                <div class="signature-box">İmza</div>
+            </div>
+            <div class="approval-step" style="flex-grow: 0; padding-top: 35px;">➡️</div>
+            <div class="approval-step">
+                <p>Monozukuri Sorumlu Kişi</p>
+                <p>Ad - Soyad</p>
+                <div class="signature-box">İmza</div>
+            </div>
+            <div class="approval-step" style="flex-grow: 0; padding-top: 35px;">➡️</div>
+            <div class="approval-step">
+                <p>İlgili Departman</p>
+                <p>Ad - Soyad</p>
+                <div class="signature-box">İmza</div>
+            </div>
+            <div class="approval-step" style="flex-grow: 0; padding-top: 35px;">➡️</div>
+            <div class="approval-step">
+                <p>Uygulayan Ekip Sorumlusu</p>
+                <p>Ad - Soyad</p>
+                <div class="signature-box">İmza</div>
+            </div>
+        </div>
+        <div class="label-group" style="margin-top: 20px;">
+            <div class="field">
+                <label for="bilgilendirme">Başvuran kişiye öneri sonucu hakkında bilgilendirme yapma:</label>
+                <input type="text" id="bilgilendirme" name="bilgilendirme">
+            </div>
+            <div class="field">
+                <label for="uygulamaTarihi">Uygulama Tarihi :</label>
+                <input type="date" id="uygulamaTarihi" name="uygulamaTarihi">
+            </div>
+            <div class="field">
+                <label for="bitisTarihi">Bitiş Tarihi :</label>
+                <input type="date" id="bitisTarihi" name="bitisTarihi">
+            </div>
+        </div>
+    </div>
+    
+    <button type="submit" style="padding: 10px 20px; background-color: #004d99; color: white; border: none; cursor: pointer; margin-top: 20px;">Gönder</button>
+
+</div>
+
+</body>
+</html>
