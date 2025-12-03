@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Daikin İyileştirme Öneri Formu (Modern & Responsive)</title>
+    <title>Daikin İyileştirme Öneri Formu (Nihai Sürüm)</title>
     <style>
         /* Genel Stil ve Resetler */
         body {
@@ -75,7 +75,7 @@
             margin-bottom: 15px;
         }
         .field {
-            flex: 1 1 48%; /* İki sütun düzeni */
+            flex: 1 1 48%; 
             padding-right: 2%;
             margin-bottom: 15px;
         }
@@ -135,7 +135,7 @@
             margin-top: 5px;
             border-radius: 4px;
             cursor: crosshair;
-            touch-action: none; /* Dokunmatik kaydırmayı engeller */
+            touch-action: none; 
         }
         .clear-btn {
             display: block;
@@ -154,7 +154,7 @@
             background-color: #d32f2f;
         }
 
-        /* Onay Akışı (Approval Flow) */
+        /* Onay Akışı Stilleri */
         .approval-flow {
             display: flex;
             justify-content: space-between;
@@ -165,11 +165,6 @@
         .approval-step {
             flex: 1;
             padding: 0 5px;
-        }
-        .approval-step p {
-            margin: 0 0 5px 0;
-            font-size: 0.85em;
-            color: #555;
         }
         .approval-step strong {
             display: block;
@@ -182,6 +177,18 @@
             font-size: 1.5em;
             padding-top: 45px;
             flex-shrink: 0;
+        }
+        /* Yeni Ad Soyad Girişi */
+        .signature-name-input {
+            width: 100%;
+            padding: 5px;
+            margin-top: 5px;
+            margin-bottom: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 0.9em;
+            text-align: center;
+            box-sizing: border-box;
         }
 
         /* Commit Button */
@@ -204,34 +211,15 @@
         
         /* --- RESPONSIVE AYARLAR (MEDIA QUERIES) --- */
 
-        /* 768px ve altındaki ekranlar için (Tablet ve Telefonlar) */
         @media (max-width: 768px) {
-            body {
-                padding: 15px; 
-            }
-            .header {
-                flex-direction: column;
-                text-align: center;
-                padding: 15px;
-            }
-            .logo {
-                margin-right: 0;
-                margin-bottom: 10px;
-            }
-            .form-content {
-                padding: 15px;
-            }
+            body { padding: 15px; }
+            .header { flex-direction: column; text-align: center; padding: 15px; }
+            .logo { margin-right: 0; margin-bottom: 10px; }
+            .form-content { padding: 15px; }
             
-            /* İki sütunlu düzeni tek sütuna çevir */
-            .form-group {
-                flex-direction: column;
-            }
-            .field {
-                flex: 1 1 100%;
-                padding-right: 0;
-            }
+            .form-group { flex-direction: column; }
+            .field { flex: 1 1 100%; padding-right: 0; }
             
-            /* Onay Akışını Dikey Yapılandırma */
             .approval-flow {
                 flex-direction: column;
                 gap: 20px;
@@ -242,25 +230,12 @@
                 border: 1px solid #eee;
                 border-radius: 5px;
             }
-            .arrow {
-                display: none;
-            }
+            .arrow { display: none; }
             
-            /* Checkbox Grubu düzenini ayarlama */
-            .checkbox-group {
-                flex-direction: column;
-                gap: 10px;
-            }
+            .checkbox-group { flex-direction: column; gap: 10px; }
 
-            /* Kontrol Durumu kutusunu tam genişlik yap */
-            .section-body > div:first-child {
-                flex-direction: column;
-                align-items: stretch;
-            }
-            .section-body > div:first-child > div:last-child {
-                width: 100%;
-                margin-top: 15px;
-            }
+            .section-body > div:first-child { flex-direction: column; align-items: stretch; }
+            .section-body > div:first-child > div:last-child { width: 100%; margin-top: 15px; }
         }
     </style>
 </head>
@@ -351,21 +326,21 @@
                 <div class="approval-flow">
                     <div class="approval-step">
                         <strong>Formen / Hat Lideri</strong>
-                        <p>Ad - Soyad</p>
+                        <input type="text" name="formen_ad_soyad" placeholder="Ad Soyad" class="signature-name-input">
                         <canvas id="signature-formen" class="signature-pad"></canvas>
                         <button type="button" onclick="clearSignature('signature-formen')" class="clear-btn">Temizle</button>
                     </div>
                     <div class="arrow">→</div>
                     <div class="approval-step">
                         <strong>Mühendis / Şef</strong>
-                        <p>Ad - Soyad</p>
+                        <input type="text" name="muhendis_ad_soyad" placeholder="Ad Soyad" class="signature-name-input">
                         <canvas id="signature-muhendis" class="signature-pad"></canvas>
                         <button type="button" onclick="clearSignature('signature-muhendis')" class="clear-btn">Temizle</button>
                     </div>
                     <div class="arrow">→</div>
                     <div class="approval-step">
                         <strong>Uygulayıcı Sorumlu</strong>
-                        <p>Ad - Soyad</p>
+                        <input type="text" name="uygulayici_ad_soyad" placeholder="Ad Soyad" class="signature-name-input">
                         <canvas id="signature-uygulayici" class="signature-pad"></canvas>
                         <button type="button" onclick="clearSignature('signature-uygulayici')" class="clear-btn">Temizle</button>
                     </div>
@@ -400,7 +375,7 @@
             ctx.lineCap = 'round';
             ctx.strokeStyle = '#000';
             ctx.fillStyle = '#fff';
-            ctx.fillRect(0, 0, canvas.width, canvas.height); // Arka planı beyaz yapar
+            ctx.fillRect(0, 0, canvas.width, canvas.height); 
         };
 
         setCanvasSize();
@@ -408,14 +383,12 @@
 
         function getCoords(e) {
             const rect = canvas.getBoundingClientRect();
-            // Dokunmatik (touch) olayları
             if (e.touches && e.touches.length > 0) {
                 return {
                     x: e.touches[0].clientX - rect.left,
                     y: e.touches[0].clientY - rect.top
                 };
             }
-            // Mouse olayları
             return {
                 x: e.clientX - rect.left,
                 y: e.clientY - rect.top
@@ -445,7 +418,6 @@
             drawing = false;
         };
 
-        // Olay Dinleyicileri (Mouse ve Dokunmatik)
         canvas.addEventListener('mousedown', startDrawing);
         canvas.addEventListener('mousemove', draw);
         document.addEventListener('mouseup', stopDrawing); 
@@ -468,31 +440,31 @@
         if (canvas) {
             const ctx = canvas.getContext('2d');
             ctx.clearRect(0, 0, canvas.width, canvas.height);
-            // İmza alanı temizlendikten sonra arka planı tekrar beyaz yap
             ctx.fillStyle = '#fff';
             ctx.fillRect(0, 0, canvas.width, canvas.height);
         }
     }
 
-    // Form Gönderme İşlemi (Base64 Verisini Konsola Yazdırma)
+    // Form Gönderme İşlemi
     document.querySelector('.form-container').addEventListener('submit', function(e) {
         e.preventDefault();
 
-        // Tüm imza alanlarını Base64 formatında topla
         const signatures = {};
         document.querySelectorAll('.signature-pad').forEach(canvas => {
             signatures[canvas.id] = canvas.toDataURL('image/png');
         });
 
+        // NOT: İsim giriş alanlarını da form verilerine dahil etmeyi unutmayın.
+        const formenName = document.querySelector('input[name="formen_ad_soyad"]').value;
+        // ... diğer isimler
+
         console.log("-----------------------------------------");
         console.log("FORM GÖNDERİMİ BAŞLATILDI:");
         console.log("-----------------------------------------");
-        console.log("İmzalar (Base64 Verisi - Sunucuya Gönderilmeli):");
+        console.log("Örn. Formen Ad Soyad:", formenName);
+        console.log("İmzalar (Base64 Verisi - Base64):");
         console.log(signatures);
         
-        // Gerçek uygulamada, formun diğer alanlarını da toplayıp
-        // bir AJAX (fetch/XMLHttpRequest) isteği ile sunucuya POST etmeniz gerekir.
-
         alert("Form verileri (imzalar dahil) konsola yazıldı. Gerçek uygulamada veriler sunucuya gönderilmelidir.");
     });
 </script>
